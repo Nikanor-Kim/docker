@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  amorequest:
+    build: .
+    container_name: amorequest
+    # ports:
+    #   - "80:80"
+    volumes:
+      - ../:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - devnet # ⬅️ вложено внутрь "hosting"
+
+networks:
+  devnet:
+    external: true # ⬅️ Docker не создаёт сеть, а использует общую
