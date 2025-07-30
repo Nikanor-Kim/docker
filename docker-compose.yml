@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  amorequest:
+    build:
+      context: ./amorequest
+    container_name: amorequest
+    volumes:
+      - ./amorequest:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - devnet
+
+  nginx:
+    image: nginx:alpine
+    container_name: dev-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - devnet
+
+networks:
+  devnet:
+    external: true # ⬅️ Docker не создаёт сеть, а использует общую
